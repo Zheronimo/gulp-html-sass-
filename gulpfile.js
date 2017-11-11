@@ -1,48 +1,26 @@
-'use strict'
-var gulp = require('gulp'),
-    includer = require("gulp-x-includer"),
-	gp = require('gulp-load-plugins')(),
-    browserSync = require('browser-sync').create();
+'use strict';
 
-gulp.task('serve', function() {
-    browserSync.init({
-        server: {
-            baseDir: "./build"
-        }
-    });
+global.$ = {
+    gulp: require('gulp'),
+    inc: require("gulp-x-includer"),
+    gp: require('gulp-load-plugins')(),
+    bs: require('browser-sync').create(),
+
+    path: {
+        tasks: require('./gulp/config/tasks.js')
+    }
+};
+
+$.path.tasks.forEach(function (taskPath) {
+    require(taskPath)();
 });
 
-gulp.task('include', function () {
-    return gulp.src('src/html/page/*.html')
-        .pipe(includer())
-        .pipe (gulp.dest('build/'))
-        .on('end', browserSync.reload);
-});
+$.gulp.task('default', $.gulp.series(
+	$.gulp.parallel('include', 'sass', 'scripts:lib', 'scripts', 'img:dev'),
+    $.gulp.parallel('watch', 'serve')
+));
 
-gulp.task('sass', function () {
-    return gulp.src('src/static/sass/main.sass')
-        .pipe(gp.sourcemaps.init())
-        .pipe(gp.sass({}))
-        .pipe(gp.autoprefixer({
-            browsers: ['last 10 versions']
-        }))
-        .on("error", gp.notify.onError({
-        message: "Error: <%= error.message %>",
-        title: "stile"
-      	}))
-        .pipe(gp.csso())
-        .pipe(gp.sourcemaps.write())
-        .pipe (gulp.dest('build/static/css/'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
-});
-
-gulp.task('watch', function(){
-	gulp.watch('src/html/**/*.html', gulp.series('include'));
-	gulp.watch('src/static/sass/**/*.sass', gulp.series('sass'));
-});
-gulp.task('default', gulp.series(
-	gulp.parallel('include', 'sass'),
-    gulp.parallel('watch', 'serve')
-	));
+$.gulp.task('build', $.gulp.series(
+	$.gulp.parallel('include', 'sass', 'scripts:lib', 'scripts', 'img:build'),
+    $.gulp.parallel('watch', 'serve')
+));

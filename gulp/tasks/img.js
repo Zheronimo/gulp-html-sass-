@@ -8,4 +8,8 @@ module.exports = function(){
             .pipe($.gp.tinypng('y656wTWCKjFNZ_i2M3hgMF1_UvNKt062'))
             .pipe ($.gulp.dest('build/static/img/'))
     });
+    $.gulp.task('svg:copy', () => {
+        return $.gulp.src('src/static/img/svg/*.svg')
+            .pipe($.gulp.dest('build/static/img/svg/'));
+    });
 };

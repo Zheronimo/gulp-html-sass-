@@ -23,6 +23,7 @@ module.exports = function(){
 
     $.gulp.task('sass:build', function () {
         return $.gulp.src(['src/static/sass/main.+(scss|sass)', 'src/static/sass/libs/*.+(scss|sass|css)'])
+            .pipe($.gp.sourcemaps.init())
             .pipe($.gp.plumber({
                 errorHandler: $.gp.notify.onError(function(err){
                     return {
@@ -31,7 +32,6 @@ module.exports = function(){
                     };
                 })
             }))
-            .pipe($.gp.sourcemaps.init())
             .pipe($.gp.sass())
             .pipe($.gp.autoprefixer({
                 browsers: ['last 10 versions']

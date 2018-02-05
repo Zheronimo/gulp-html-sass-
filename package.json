@@ -28,5 +28,7 @@
     "gulp-tinypng": "^1.0.2",
     "gulp-x-includer": "^0.1.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "normalize-scss": "^7.0.0"
+  }
 }

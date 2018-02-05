@@ -4,7 +4,7 @@ global.$ = {
     gulp: require('gulp'),
     del: require('del'),
     inc: require("gulp-x-includer"),
-    gp: require('gulp-load-plugins')(),
+	gp: require('gulp-load-plugins')(),
     bs: require('browser-sync').create(),
 
     path: {
@@ -16,14 +16,13 @@ $.path.tasks.forEach(function (taskPath) {
     require(taskPath)();
 });
 
-$.gulp.task('default', $.gulp.series(
+$.gulp.task('default', $.gulp.series( 
     'clean',
-	$.gulp.parallel('include', 'sass:dev', 'scripts:lib', 'scripts', 'svg', 'fonts', 'img:dev', 'svg:copy'),
+	$.gulp.parallel('include', 'sass:dev', 'scripts:lib', 'svg', 'fonts', 'scripts', 'img:dev', 'svg:copy'),
     $.gulp.parallel('watch', 'serve')
 ));
-
 $.gulp.task('build', $.gulp.series(
     'clean',
-	$.gulp.parallel('include', 'sass:build', 'scripts:lib', 'scripts', 'svg', 'fonts', 'img:build', 'svg:copy'),
+	$.gulp.parallel('include', 'sass:build', 'scripts:lib', 'svg', 'fonts', 'scripts', 'img:build','svg:copy'),
     $.gulp.parallel('watch', 'serve')
 ));

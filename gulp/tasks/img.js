@@ -10,6 +10,6 @@ module.exports = function(){
     });
     $.gulp.task('svg:copy', () => {
         return $.gulp.src('src/static/img/svg/*.svg')
-            .pipe($.gulp.dest('build/static/img/svg/'));
+            .pipe($.gulp.dest('build/static/img/svg'));
     });
 };

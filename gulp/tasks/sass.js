@@ -1,6 +1,6 @@
 module.exports = function(){
     $.gulp.task('sass:dev', function () {
-        return $.gulp.src('src/static/sass/main.+(scss|sass)')
+        return $.gulp.src(['src/static/sass/main.+(scss|sass)', 'src/static/sass/libs/*.+(scss|sass|css)'])
             .pipe($.gp.sourcemaps.init())
             .pipe($.gp.plumber({
                 errorHandler: $.gp.notify.onError(function(err){
@@ -22,7 +22,7 @@ module.exports = function(){
     });
 
     $.gulp.task('sass:build', function () {
-        return $.gulp.src('src/static/sass/main.+(scss|sass)')
+        return $.gulp.src(['src/static/sass/main.+(scss|sass)', 'src/static/sass/libs/*.+(scss|sass|css)'])
             .pipe($.gp.plumber({
                 errorHandler: $.gp.notify.onError(function(err){
                     return {
